@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  qa-api:
+    container_name: qa-api
+    image: qa-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+    - "2999"
+    ports:
+       - "2999:2999"
+    depends_on:
+      - db
+
+  db:
+    container_name: qa_temp_db
+    image: postgres:13
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: qatestuser
+      POSTGRES_PASSWORD: qatestuserpassword
+
+
