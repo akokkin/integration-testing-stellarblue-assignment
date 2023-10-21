@@ -18,14 +18,9 @@ jobs:
 
       - name: Wait for API to Be Ready
         run: |
-          # Add a script to wait for the API to be operational
-          # For example, poll the API's Swagger documentation endpoint
-          # until it's accessible
           API_URL="http://localhost:2999"  
           is_api_ready() {
-            # Use a tool like curl to send a GET request to an endpoint that indicates API readiness
             response=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL/swagger")
-
             if [ "$response" = "200" ]; then
               echo "API is ready."
               exit 0  
