@@ -18,7 +18,7 @@ jobs:
 
       - name: Wait for API to Be Ready
         run: |
-          API_URL="http://localhost:2999"  
+          API_URL="http://127.0.0.1:2999"  
           is_api_ready() {
             response=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL/swagger")
             if [ "$response" = "200" ]; then
