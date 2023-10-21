@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - ci-integration
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Compose
+        run: docker-compose up -d
+
+      - name: Wait for API to Be Ready
+        run: |
+          API_URL="http://localhost:2999"  
+          is_api_ready() {
+            response=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL/swagger")
+
+            if [ "$response" = "200" ]; then
+              echo "API is ready."
+              exit 0  
+            else
+              echo "API is not yet ready. Retrying in 5 seconds..."
+              sleep 5
+              is_api_ready  
+              fi
+          }
+          is_api_ready
+            
+      # - name: Run CRUD Tests
+      #   run: |
+      #     # Add a script to run your CRUD tests
+      #     # You may use a tool like Newman or custom test scripts
+      #     # Example: newman run your-tests.postman_collection.json
+      #     echo "Running CRUD tests..."
+
+      # - name: Capture Test Results
+      #   # Capture and store test results, logs, or artifacts
+      #   # Example: Copy test result files to an artifacts directory
+
+      # - name: Tear Down Docker Containers
+      #   run: docker-compose down -v
+
+      # - name: Cleanup
+      #   run: |
+      #     # Any additional cleanup steps
+      #     echo "Cleanup..."
