@@ -22,12 +22,12 @@ jobs:
             
       - name: Run CRUD Tests
         run: |
-              cd Part_A && npm ci && npm test
+          cd tests && npm ci && npm test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Newman_Report
-          path: Part_A/reports/report.html
+          path: tests/reports/report.html
       - name: Tear Down Docker Containers
         run: docker-compose down -v

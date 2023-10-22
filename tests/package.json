@@ -1,0 +1,22 @@
+{
+  "name": "ak-crud-tests",
+  "version": "0.0.1",
+  "dependencies": {
+    "newman": "^5.1.2",
+    "newman-reporter-htmlextra": "^1.22.11"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run Stellar_Blue_PartC.postman_collection.json -e Stellar_Blue.postman_environment.json -r cli,htmlextra --reporter-htmlextra-displayProgressBar --reporter-htmlextra-export reports/report.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akokkin/integration-testing-stellarblue-assignment.git"
+  },
+  "author": "Alexandros Kokkinidis",
+  "bugs": {
+    "url": "https://github.com/akokkin/integration-testing-stellarblue-assignment/issues"
+  },
+  "homepage": "https://github.com/akokkin/integration-testing-stellarblue-assignment#readme"
+}
