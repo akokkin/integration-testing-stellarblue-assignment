@@ -20,21 +20,14 @@ jobs:
       - name: Delay for 5 seconds
         run: sleep 5
             
-      # - name: Run CRUD Tests
-      #   run: |
-      #     # Add a script to run your CRUD tests
-      #     # You may use a tool like Newman or custom test scripts
-      #     # Example: newman run your-tests.postman_collection.json
-      #     echo "Running CRUD tests..."
-
-      # - name: Capture Test Results
-      #   # Capture and store test results, logs, or artifacts
-      #   # Example: Copy test result files to an artifacts directory
-
-      # - name: Tear Down Docker Containers
-      #   run: docker-compose down -v
-
-      # - name: Cleanup
-      #   run: |
-      #     # Any additional cleanup steps
-      #     echo "Cleanup..."
+      - name: Run CRUD Tests
+        run: |
+              cd Part_A && npm ci && npm test
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Newman_Report
+          path: Part_A/reports/report.html
+      - name: Tear Down Docker Containers
+        run: docker-compose down -v
